@@ -1,0 +1,102 @@
+[project]
+name = "pyfend"
+version = "0.1.0"
+description = "Collection of Tools for Cybersecurity in CLI and Library"
+readme = "README.md"
+authors = [
+    { name = "Raymond Frans Dodi Situmorang", email = "raymondsitumorang17@gmail.com" },
+    { name = "Wilson Angelie Tan", email = "wilsonangelietann@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+license = "MIT"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Other Audience",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Repository = "https://github.com/PyFend/PyFend"
+Issues = "https://github.com/PyFend/PyFend/issues"
+
+[build-system]
+requires = ["uv_build>=0.11.6,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.6.0",
+    "ruff>=0.15.12",
+]
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+line-length = 80
+indent-width = 4
+target-version = "py312"
+
+[tool.ruff.lint]
+extend-select = [
+    "F",        # Pyflakes rules
+    "W",        # PyCodeStyle warnings
+    "E",        # PyCodeStyle errors
+    "I",        # Sort imports properly
+    "UP",       # Warn if certain things can changed due to newer Python versions
+    "C4",       # Catch incorrect use of comprehensions, dict, list, etc
+    "FA",       # Enforce from __future__ import annotations
+    "ISC",      # Good use of string concatenation
+    "ICN",      # Use common import conventions
+    "RET",      # Good return practices
+    "SIM",      # Common simplification rules
+    "TID",      # Some good import practices
+    "TC",       # Enforce importing certain types in a TYPE_CHECKING block
+    "PTH",      # Use pathlib instead of os.path
+    "TD",       # Be diligent with TODO comments
+    "NPY",      # Some numpy-specific things
+]
+ignore = []
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+docstring-code-line-length = 30
