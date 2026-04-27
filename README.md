@@ -13,3 +13,7 @@ uv sync
 ## Usage
 
 CLI usage and library examples will be added as tools are implemented.
+
+## Documentation
+
+- [Git Flow](docs/gitflow.md)
