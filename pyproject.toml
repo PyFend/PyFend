@@ -8,7 +8,10 @@ authors = [
     { name = "Wilson Angelie Tan", email = "wilsonangelietann@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "click>=8.3.3",
+    "pycryptodome>=3.23.0",
+]
 license = "MIT"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
@@ -66,10 +69,8 @@ indent-width = 4
 target-version = "py312"
 
 [tool.ruff.lint]
-extend-select = [
+select = [
     "F",        # Pyflakes rules
-    "W",        # PyCodeStyle warnings
-    "E",        # PyCodeStyle errors
     "I",        # Sort imports properly
     "UP",       # Warn if certain things can changed due to newer Python versions
     "C4",       # Catch incorrect use of comprehensions, dict, list, etc
@@ -82,7 +83,6 @@ extend-select = [
     "TC",       # Enforce importing certain types in a TYPE_CHECKING block
     "PTH",      # Use pathlib instead of os.path
     "TD",       # Be diligent with TODO comments
-    "NPY",      # Some numpy-specific things
 ]
 ignore = []
 
@@ -100,3 +100,6 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 docstring-code-format = false
 docstring-code-line-length = 30
+
+[project.scripts]
+pyfend = "pyfend.cli.__main__:main"
