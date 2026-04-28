@@ -99,3 +99,6 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 docstring-code-format = false
 docstring-code-line-length = 30
+
+[project.scripts]
+pyfend = "pyfend.cli.__main__:main"

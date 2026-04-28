@@ -2,9 +2,9 @@ import argparse
 import os
 from pathlib import Path
 
-from .core.cracker import crack_hash
-from .core.detector import detect_hash
-from .core.wordlist import ADDITIONAL_FILE, generate_smart_wordlist
+from pyfend.core.cracker import crack_hash
+from pyfend.core.detector import detect_hash
+from pyfend.core.wordlist import ADDITIONAL_FILE, generate_smart_wordlist
 
 # Path relative to this file
 BASE_DIR = Path(__file__).parent
