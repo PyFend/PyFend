@@ -8,6 +8,7 @@ If you do not have `uv` installed, follow the [official installation guide](http
 
 ```bash
 uv sync
+uv run pre-commit install
 ```
 
 ## Usage

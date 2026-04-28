@@ -93,7 +93,7 @@ def generate_smart_wordlist():
     path = Path(ADDITIONAL_FILE)
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    with open(path, "w", encoding="utf-8") as f:
+    with Path.open(path, "w", encoding="utf-8") as f:
         for w in final_list:
             f.write(w + "\n")
 

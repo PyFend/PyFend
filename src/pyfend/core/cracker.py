@@ -53,7 +53,7 @@ def crack_hash(
 
     # 2. TRY ADDITIONAL FILE
     if additional and additional.exists():
-        with open(additional, encoding="utf-8", errors="ignore") as f:
+        with Path.open(additional, encoding="utf-8", errors="ignore") as f:
             words = [line.strip() for line in f if line.strip()]
             found = _check_words(words, hash_func, target_hash)
             if found:

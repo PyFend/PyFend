@@ -117,9 +117,13 @@ def detect_hash(hash_value):
         ):
             score += 0.3
 
-        if length_match and charset == "hex" and is_hex(hash_value):
-            if sig["name"] not in ("MD5", "NTLM"):
-                score += 0.2
+        if (
+            length_match
+            and charset == "hex"
+            and is_hex(hash_value)
+            and sig["name"] not in ("MD5", "NTLM")
+        ):
+            score += 0.2
 
         if score > 0.4:
             results.append(
