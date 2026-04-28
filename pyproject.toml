@@ -8,7 +8,9 @@ authors = [
     { name = "Wilson Angelie Tan", email = "wilsonangelietann@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pycryptodome>=3.23.0",
+]
 license = "MIT"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
