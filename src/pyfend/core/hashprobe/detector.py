@@ -2,7 +2,7 @@ import base64
 import re
 import string
 
-from pyfend.core.hashprobe.hashes import HASH_SIGNATURES
+from .hashes import HASH_SIGNATURES
 
 # Pre-compile regex
 HEX_PATTERN = re.compile(r"^[0-9a-fA-F]+$")

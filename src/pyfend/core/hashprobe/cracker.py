@@ -2,7 +2,7 @@ import concurrent.futures
 import gzip
 from pathlib import Path
 
-from pyfend.core.hashprobe.hashes import HASH_FUNCTIONS
+from .hashes import HASH_FUNCTIONS
 
 
 class HashProbeCracker:

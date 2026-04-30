@@ -2,9 +2,12 @@ import argparse
 import os
 from pathlib import Path
 
-from pyfend.core.hashprobe.cracker import HashProbeCracker
-from pyfend.core.hashprobe.detector import HashProbeDetector
-from pyfend.core.hashprobe.word_list import ADDITIONAL_FILE, HashProbeWordList
+from pyfend.core.hashprobe import (
+    ADDITIONAL_FILE,
+    HashProbeCracker,
+    HashProbeDetector,
+    HashProbeWordList,
+)
 
 # Path relative to this file
 BASE_DIR = Path(__file__).parent
