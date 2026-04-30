@@ -2,7 +2,7 @@ import argparse
 import os
 from pathlib import Path
 
-from pyfend.core.hashprobe import (
+from pyfend.tools.hashprobe import (
     ADDITIONAL_FILE,
     HashProbeCracker,
     HashProbeDetector,
