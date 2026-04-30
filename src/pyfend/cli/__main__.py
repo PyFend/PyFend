@@ -2,9 +2,9 @@ import argparse
 import os
 from pathlib import Path
 
-from pyfend.core.cracker import crack_hash
-from pyfend.core.detector import detect_hash
-from pyfend.core.wordlist import ADDITIONAL_FILE, generate_smart_wordlist
+from pyfend.core.hashprobe.cracker import HashProbeCracker
+from pyfend.core.hashprobe.detector import HashProbeDetector
+from pyfend.core.hashprobe.word_list import ADDITIONAL_FILE, HashProbeWordList
 
 # Path relative to this file
 BASE_DIR = Path(__file__).parent
@@ -61,7 +61,7 @@ def main():
     args = parse_args()
     print("HashProbe v0.1 Analysis tools")
 
-    results = detect_hash(args.hash_value)
+    results = HashProbeDetector.detect_hash(args.hash_value)
 
     print("[+] Possible hash types:")
     for r in results:
@@ -79,7 +79,7 @@ def main():
 
     # Generate smart wordlist if -i
     if args.info:
-        generate_smart_wordlist()  # overwrite additional.txt
+        HashProbeWordList.generate_smart_wordlist()  # overwrite additional.txt
         additional_file = ADDITIONAL_FILE
 
     # Start dictionary attack if -b
@@ -91,7 +91,7 @@ def main():
         for r in results:
             hash_type = r["type"]
             try:
-                result = crack_hash(
+                result = HashProbeCracker.crack_hash(
                     target_hash=args.hash_value,
                     hash_type=hash_type,
                     wordlist_path=args.bruteforce,
