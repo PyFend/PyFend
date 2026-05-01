@@ -1,19 +1,10 @@
 import argparse
 import os
 from datetime import datetime
-from pathlib import Path
 
 from questionary import prompt
 
 from pyfend.tools.hashprobe.hash_probe import crack
-
-# Path relative to this file
-BASE_DIR = Path(__file__).parent
-ROCKYOU_GZ = BASE_DIR / "wordlists" / "rockyou.txt.gz"
-ROCKYOU_TXT = BASE_DIR / "wordlists" / "rockyou.txt"
-
-# Default to .gz if it exists, otherwise .txt
-DEFAULT_ROCKYOU = ROCKYOU_GZ if ROCKYOU_GZ.exists() else ROCKYOU_TXT
 
 
 def parse_args():
@@ -33,8 +24,6 @@ def parse_args():
     parser.add_argument(
         "-b",
         "--bruteforce",
-        nargs="?",
-        const=str(DEFAULT_ROCKYOU),
         default=None,
         metavar="WORDLIST",
         help="Enable dictionary-based testing (default: rockyou.txt)",

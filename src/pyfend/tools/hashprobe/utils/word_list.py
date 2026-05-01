@@ -3,8 +3,7 @@ from pathlib import Path
 
 from pyfend.tools.hashprobe.types import Info
 
-# Path relative to this file
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path.cwd()
 ADDITIONAL_FILE = BASE_DIR / "wordlists" / "additional.txt"
 
 

@@ -6,14 +6,6 @@ from .utils.cracker import crack_hash
 from .utils.detector import detect_hash
 from .utils.word_list import ADDITIONAL_FILE, generate_smart_wordlist
 
-# Path relative to this file
-BASE_DIR = Path(__file__).parent
-ROCKYOU_GZ = BASE_DIR / "wordlists" / "rockyou.txt.gz"
-ROCKYOU_TXT = BASE_DIR / "wordlists" / "rockyou.txt"
-
-# Default to .gz if it exists, otherwise .txt
-DEFAULT_ROCKYOU = ROCKYOU_GZ if ROCKYOU_GZ.exists() else ROCKYOU_TXT
-
 
 def crack(
     hash_value: str,
