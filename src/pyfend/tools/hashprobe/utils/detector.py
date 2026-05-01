@@ -1,5 +1,4 @@
 import base64
-import math
 import re
 import string
 
@@ -10,31 +9,17 @@ HEX_PATTERN = re.compile(r"^[0-9a-fA-F]+$")
 BASE64_STRICT_PATTERN = re.compile(r"^[A-Za-z0-9+/]+={0,2}$")
 
 
-def is_hex(s):
+def __is_hex(s):
     return bool(HEX_PATTERN.fullmatch(s))
 
 
-def is_base64_charset(s):
+def __is_base64_charset(s):
     if len(s) % 4 != 0:
         return False
     return bool(BASE64_STRICT_PATTERN.fullmatch(s))
 
 
-def shannon_entropy(s):
-    if not s:
-        return 0.0
-    from collections import Counter
-
-    counts = Counter(s)
-    entropy = 0.0
-    length = len(s)
-    for c in counts.values():
-        p = c / length
-        entropy -= p * math.log2(p)
-    return entropy
-
-
-def is_printable_ratio(data, threshold=0.90):
+def __is_printable_ratio(data, threshold=0.90):
     if not data:
         return False
     printable = sum(
@@ -43,11 +28,11 @@ def is_printable_ratio(data, threshold=0.90):
     return printable / len(data) >= threshold
 
 
-def detect_base64(value):
-    if not is_base64_charset(value):
+def __detect_base64(value):
+    if not __is_base64_charset(value):
         return None
 
-    looks_like_hex = is_hex(value)
+    looks_like_hex = __is_hex(value)
 
     try:
         decoded = base64.b64decode(value, validate=True)
@@ -57,7 +42,7 @@ def detect_base64(value):
     if not decoded:
         return None
 
-    looks_like_text = is_printable_ratio(decoded)
+    looks_like_text = __is_printable_ratio(decoded)
 
     if looks_like_hex and not looks_like_text:
         return None
@@ -83,7 +68,7 @@ def detect_hash(hash_value):
     results = []
 
     length = len(hash_value)
-    base64_result = detect_base64(hash_value)
+    base64_result = __detect_base64(hash_value)
     if base64_result:
         results.append(base64_result)
 
@@ -111,23 +96,26 @@ def detect_hash(hash_value):
         charset = sig.get("charset")
         if (
             charset == "hex"
-            and is_hex(hash_value)
+            and __is_hex(hash_value)
             or charset == "base64"
-            and is_base64_charset(hash_value)
+            and __is_base64_charset(hash_value)
         ):
             score += 0.3
 
         if (
             length_match
             and charset == "hex"
-            and is_hex(hash_value)
+            and __is_hex(hash_value)
             and sig["name"] not in ("MD5", "NTLM")
         ):
             score += 0.2
 
         if score > 0.4:
             results.append(
-                {"type": sig["name"], "confidence": round(min(score, 1.0), 2)}
+                {
+                    "type": sig["name"],
+                    "confidence": round(min(score, 1.0), 2),
+                }
             )
 
     results.sort(key=lambda x: x["confidence"], reverse=True)

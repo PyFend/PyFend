@@ -1,18 +1,10 @@
 import argparse
 import os
-from pathlib import Path
+from datetime import datetime
 
-from pyfend.core.cracker import crack_hash
-from pyfend.core.detector import detect_hash
-from pyfend.core.wordlist import ADDITIONAL_FILE, generate_smart_wordlist
+from questionary import prompt
 
-# Path relative to this file
-BASE_DIR = Path(__file__).parent
-ROCKYOU_GZ = BASE_DIR / "wordlists" / "rockyou.txt.gz"
-ROCKYOU_TXT = BASE_DIR / "wordlists" / "rockyou.txt"
-
-# Default to .gz if it exists, otherwise .txt
-DEFAULT_ROCKYOU = ROCKYOU_GZ if ROCKYOU_GZ.exists() else ROCKYOU_TXT
+from pyfend.tools.hashprobe.hash_probe import crack
 
 
 def parse_args():
@@ -32,8 +24,7 @@ def parse_args():
     parser.add_argument(
         "-b",
         "--bruteforce",
-        nargs="?",
-        const=str(DEFAULT_ROCKYOU),
+        default=None,
         metavar="WORDLIST",
         help="Enable dictionary-based testing (default: rockyou.txt)",
     )
@@ -57,56 +48,53 @@ def parse_args():
     return parser.parse_args()
 
 
+def _valid_date(birth_str: str):
+    try:
+        datetime.strptime(birth_str, "%Y-%m-%d")
+        return True
+    except ValueError:
+        return "Invalid date format, use YYYY-MM-DD"
+
+
 def main():
     args = parse_args()
-    print("HashProbe v0.1 Analysis tools")
+    info_input = None
 
-    results = detect_hash(args.hash_value)
-
-    print("[+] Possible hash types:")
-    for r in results:
-        print(f"  - {r['type']} (confidence: {r['confidence']})")
-
-        if r["type"] == "Base64 Encoded":
-            if r.get("decoded_preview"):
-                print(
-                    f"     ↳ decoded ({r['decoded_type']}): {r['decoded_preview']}"
-                )
-            else:
-                print("      ↳ decoded: binary / non-printable")
-
-    additional_file = None
-
-    # Generate smart wordlist if -i
     if args.info:
-        generate_smart_wordlist()  # overwrite additional.txt
-        additional_file = ADDITIONAL_FILE
-
-    # Start dictionary attack if -b
-    if args.bruteforce:
-        print(
-            f"\n[*] Starting dictionary attack using {args.threads} threads..."
+        # Info Input
+        info_input = prompt(
+            [
+                {
+                    "type": "text",
+                    "name": "name",
+                    "message": "Name:",
+                },
+                {
+                    "type": "text",
+                    "name": "nickname",
+                    "message": "Nickname:",
+                },
+                {
+                    "type": "text",
+                    "name": "birth",
+                    "message": "Birth date (YYYY-MM-DD):",
+                    "validate": lambda x: True if x == "" else _valid_date(x),
+                    "filter": lambda x: (
+                        datetime.strptime(x, "%Y-%m-%d") if x else None
+                    ),
+                },
+                {
+                    "type": "text",
+                    "name": "extra",
+                    "message": "Extra info:",
+                },
+            ]
         )
 
-        for r in results:
-            hash_type = r["type"]
-            try:
-                result = crack_hash(
-                    target_hash=args.hash_value,
-                    hash_type=hash_type,
-                    wordlist_path=args.bruteforce,
-                    limit=args.limit,
-                    additional_file=additional_file,
-                    threads=args.threads,
-                )
-            except ValueError:
-                continue
-
-            if result["found"]:
-                print(f"[+] PASSWORD FOUND! ({hash_type})")
-                print(f"    password : {result['password']}")
-                print(f"    attempts : ~{result['attempts']}")
-                print(f"    source   : {result.get('source')}")
-                return
-
-        print("[-] Password not found")
+    crack(
+        hash_value=args.hash_value,
+        bruteforce=args.bruteforce,
+        info=info_input,
+        threads=args.threads,
+        limit=args.limit,
+    )

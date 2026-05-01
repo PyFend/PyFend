@@ -5,7 +5,7 @@ from pathlib import Path
 from .hashes import HASH_FUNCTIONS
 
 
-def _check_words(words, hash_func, target_hash):
+def __check_words(words, hash_func, target_hash):
     for word in words:
         if hash_func(word) == target_hash:
             return word
@@ -41,7 +41,7 @@ def crack_hash(
 
     # 1. TRY ADDITIONAL WORDS (Direct list) FIRST
     if additional_words:
-        found = _check_words(additional_words, hash_func, target_hash)
+        found = __check_words(additional_words, hash_func, target_hash)
         if found:
             return {
                 "found": True,
@@ -55,7 +55,7 @@ def crack_hash(
     if additional and additional.exists():
         with Path.open(additional, encoding="utf-8", errors="ignore") as f:
             words = [line.strip() for line in f if line.strip()]
-            found = _check_words(words, hash_func, target_hash)
+            found = __check_words(words, hash_func, target_hash)
             if found:
                 return {
                     "found": True,
@@ -124,7 +124,10 @@ def crack_hash(
 
                         futures = [
                             executor.submit(
-                                _check_words, sc, hash_func, target_hash
+                                __check_words,
+                                sc,
+                                hash_func,
+                                target_hash,
                             )
                             for sc in sub_chunks
                         ]
