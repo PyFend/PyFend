@@ -1,13 +1,11 @@
 import argparse
 import os
+from datetime import datetime
 from pathlib import Path
 
-from pyfend.tools.hashprobe import (
-    ADDITIONAL_FILE,
-    HashProbeCracker,
-    HashProbeDetector,
-    HashProbeWordList,
-)
+from questionary import prompt
+
+from pyfend.tools.hashprobe.hash_probe import crack
 
 # Path relative to this file
 BASE_DIR = Path(__file__).parent
@@ -37,6 +35,7 @@ def parse_args():
         "--bruteforce",
         nargs="?",
         const=str(DEFAULT_ROCKYOU),
+        default=None,
         metavar="WORDLIST",
         help="Enable dictionary-based testing (default: rockyou.txt)",
     )
@@ -60,56 +59,53 @@ def parse_args():
     return parser.parse_args()
 
 
+def _valid_date(birth_str: str):
+    try:
+        datetime.strptime(birth_str, "%Y-%m-%d")
+        return True
+    except ValueError:
+        return "Invalid date format, use YYYY-MM-DD"
+
+
 def main():
     args = parse_args()
-    print("HashProbe v0.1 Analysis tools")
+    info_input = None
 
-    results = HashProbeDetector.detect_hash(args.hash_value)
-
-    print("[+] Possible hash types:")
-    for r in results:
-        print(f"  - {r['type']} (confidence: {r['confidence']})")
-
-        if r["type"] == "Base64 Encoded":
-            if r.get("decoded_preview"):
-                print(
-                    f"     ↳ decoded ({r['decoded_type']}): {r['decoded_preview']}"
-                )
-            else:
-                print("      ↳ decoded: binary / non-printable")
-
-    additional_file = None
-
-    # Generate smart wordlist if -i
     if args.info:
-        HashProbeWordList.generate_smart_wordlist()  # overwrite additional.txt
-        additional_file = ADDITIONAL_FILE
-
-    # Start dictionary attack if -b
-    if args.bruteforce:
-        print(
-            f"\n[*] Starting dictionary attack using {args.threads} threads..."
+        # Info Input
+        info_input = prompt(
+            [
+                {
+                    "type": "text",
+                    "name": "name",
+                    "message": "Name:",
+                },
+                {
+                    "type": "text",
+                    "name": "nickname",
+                    "message": "Nickname:",
+                },
+                {
+                    "type": "text",
+                    "name": "birth",
+                    "message": "Birth date (YYYY-MM-DD):",
+                    "validate": lambda x: True if x == "" else _valid_date(x),
+                    "filter": lambda x: (
+                        datetime.strptime(x, "%Y-%m-%d") if x else None
+                    ),
+                },
+                {
+                    "type": "text",
+                    "name": "extra",
+                    "message": "Extra info:",
+                },
+            ]
         )
 
-        for r in results:
-            hash_type = r["type"]
-            try:
-                result = HashProbeCracker.crack_hash(
-                    target_hash=args.hash_value,
-                    hash_type=hash_type,
-                    wordlist_path=args.bruteforce,
-                    limit=args.limit,
-                    additional_file=additional_file,
-                    threads=args.threads,
-                )
-            except ValueError:
-                continue
-
-            if result["found"]:
-                print(f"[+] PASSWORD FOUND! ({hash_type})")
-                print(f"    password : {result['password']}")
-                print(f"    attempts : ~{result['attempts']}")
-                print(f"    source   : {result.get('source')}")
-                return
-
-        print("[-] Password not found")
+    crack(
+        hash_value=args.hash_value,
+        bruteforce=args.bruteforce,
+        info=info_input,
+        threads=args.threads,
+        limit=args.limit,
+    )

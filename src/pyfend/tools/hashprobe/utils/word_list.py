@@ -1,4 +1,7 @@
+from datetime import datetime
 from pathlib import Path
+
+from pyfend.tools.hashprobe.types import Info
 
 # Path relative to this file
 BASE_DIR = Path(__file__).parent
@@ -6,7 +9,7 @@ ADDITIONAL_FILE = BASE_DIR / "wordlists" / "additional.txt"
 
 
 def create_smart_wordlist_data(
-    name: str = "", nickname: str = "", birth: str = "", extra: str = ""
+    name: str = "", nickname: str = "", birth: datetime = "", extra: str = ""
 ):
     """
     Core logic to generate a list of potential passwords based on personal info.
@@ -41,11 +44,6 @@ def create_smart_wordlist_data(
             base_words.append(e)
             base_words.append(e.lower())
 
-    # Process Birth/Modifiers
-    if birth:
-        for b in birth.replace("/", " ").replace("-", " ").split():
-            modifiers.append(b)
-
     base_words = list(set(base_words))
     modifiers = list(set(modifiers))
 
@@ -68,16 +66,11 @@ def create_smart_wordlist_data(
     return list(set(final))
 
 
-def generate_smart_wordlist():
+def generate_smart_wordlist(info: Info):
     """CLI version that uses input()"""
     print("[*] Smart wordlist generator")
 
-    name = input("Name (optional): ").strip()
-    nickname = input("Nickname (optional): ").strip()
-    birth = input("Birth year / date (optional): ").strip()
-    extra = input("Other keywords (comma separated): ").strip()
-
-    final_list = create_smart_wordlist_data(name, nickname, birth, extra)
+    final_list = create_smart_wordlist_data(**info)
 
     # Write to file for CLI usage
     path = Path(ADDITIONAL_FILE)

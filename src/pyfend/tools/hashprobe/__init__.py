@@ -1,5 +1,6 @@
 __version__ = "0.1.0"
 
-from .__main__ import crack
+from .hash_probe import crack
+from .types import Info
 
-__all__ = ["crack"]
+__all__ = ["crack", "Info"]
