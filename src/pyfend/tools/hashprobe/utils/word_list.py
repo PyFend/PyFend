@@ -9,7 +9,7 @@ ADDITIONAL_FILE = BASE_DIR / "wordlists" / "additional.txt"
 
 def create_smart_wordlist_data(
     name: str = "", nickname: str = "", birth: datetime = "", extra: str = ""
-):
+) -> list[str]:
     """
     Core logic to generate a list of potential passwords based on personal info.
     Returns a list of unique strings.
@@ -36,6 +36,11 @@ def create_smart_wordlist_data(
         if len(parts) > 1:
             base_words.append("".join(parts))
             base_words.append("".join(parts).lower())
+
+    # Process Birth/Modifiers
+    if birth:
+        for b in str(birth).replace("-", " ").split():
+            modifiers.append(b)
 
     # Process Extra Keywords
     if extra:
@@ -65,7 +70,7 @@ def create_smart_wordlist_data(
     return list(set(final))
 
 
-def generate_smart_wordlist(info: Info):
+def generate_smart_wordlist(info: Info) -> None:
     """CLI version that uses input()"""
     print("[*] Smart wordlist generator")
 

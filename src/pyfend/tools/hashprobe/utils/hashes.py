@@ -67,55 +67,55 @@ HASH_SIGNATURES = [
 ]
 
 
-def md5(s):
+def md5(s: str) -> str:
     return hashlib.md5(s.encode()).hexdigest()
 
 
-def sha1(s):
+def sha1(s: str) -> str:
     return hashlib.sha1(s.encode()).hexdigest()
 
 
-def sha224(s):
+def sha224(s: str) -> str:
     return hashlib.sha224(s.encode()).hexdigest()
 
 
-def sha256(s):
+def sha256(s: str) -> str:
     return hashlib.sha256(s.encode()).hexdigest()
 
 
-def sha384(s):
+def sha384(s: str) -> str:
     return hashlib.sha384(s.encode()).hexdigest()
 
 
-def sha512(s):
+def sha512(s: str) -> str:
     return hashlib.sha512(s.encode()).hexdigest()
 
 
-def sha3_224(s):
+def sha3_224(s: str) -> str:
     return hashlib.sha3_224(s.encode()).hexdigest()
 
 
-def sha3_256(s):
+def sha3_256(s: str) -> str:
     return hashlib.sha3_256(s.encode()).hexdigest()
 
 
-def sha3_384(s):
+def sha3_384(s: str) -> str:
     return hashlib.sha3_384(s.encode()).hexdigest()
 
 
-def sha3_512(s):
+def sha3_512(s: str) -> str:
     return hashlib.sha3_512(s.encode()).hexdigest()
 
 
-def blake2b(s):
+def blake2b(s: str) -> str:
     return hashlib.blake2b(s.encode()).hexdigest()
 
 
-def blake2s(s):
+def blake2s(s: str) -> str:
     return hashlib.blake2s(s.encode()).hexdigest()
 
 
-def ntlm(s):
+def ntlm(s: str) -> str:
     return MD4.new(s.encode("utf-16le")).hexdigest().upper()
 
 

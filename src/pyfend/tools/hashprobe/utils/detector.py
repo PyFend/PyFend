@@ -9,17 +9,17 @@ HEX_PATTERN = re.compile(r"^[0-9a-fA-F]+$")
 BASE64_STRICT_PATTERN = re.compile(r"^[A-Za-z0-9+/]+={0,2}$")
 
 
-def __is_hex(s):
+def __is_hex(s: str) -> bool:
     return bool(HEX_PATTERN.fullmatch(s))
 
 
-def __is_base64_charset(s):
+def __is_base64_charset(s: str) -> bool:
     if len(s) % 4 != 0:
         return False
     return bool(BASE64_STRICT_PATTERN.fullmatch(s))
 
 
-def __is_printable_ratio(data, threshold=0.90):
+def __is_printable_ratio(data: str, threshold=0.90) -> bool:
     if not data:
         return False
     printable = sum(
@@ -28,7 +28,7 @@ def __is_printable_ratio(data, threshold=0.90):
     return printable / len(data) >= threshold
 
 
-def __detect_base64(value):
+def __detect_base64(value: str) -> dict | None:
     if not __is_base64_charset(value):
         return None
 
@@ -63,7 +63,7 @@ def __detect_base64(value):
     return result
 
 
-def detect_hash(hash_value):
+def detect_hash(hash_value: str) -> list:
     hash_value = hash_value.strip()
     results = []
 
