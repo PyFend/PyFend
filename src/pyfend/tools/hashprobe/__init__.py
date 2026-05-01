@@ -1,6 +1,5 @@
-from .cracker import HashProbeCracker
-from .detector import HashProbeDetector
-from .hashes import HashProbeHashes
-from .word_list import ADDITIONAL_FILE, HashProbeWordList
-
 __version__ = "0.1.0"
+
+from .__main__ import crack
+
+__all__ = ["crack"]
