@@ -1,11 +1,14 @@
 import concurrent.futures
 import gzip
+from collections.abc import Callable
 from pathlib import Path
 
 from .hashes import HASH_FUNCTIONS
 
 
-def __check_words(words, hash_func, target_hash):
+def __check_words(
+    words: list[str], hash_func: Callable[[str], str], target_hash: str
+) -> str | None:
     for word in words:
         if hash_func(word) == target_hash:
             return word
@@ -20,7 +23,7 @@ def crack_hash(
     additional_file: str | None = None,
     additional_words: list[str] | None = None,
     threads: int = 1,
-):
+) -> dict:
     if hash_type not in HASH_FUNCTIONS:
         raise ValueError(f"Unsupported hash type: {hash_type}")
 

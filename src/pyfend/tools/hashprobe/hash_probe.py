@@ -13,7 +13,7 @@ def crack(
     info: Info | None = None,
     threads: int = os.cpu_count(),
     limit: int = 1,
-):
+) -> None:
     results = detect_hash(hash_value)
 
     print("[+] Possible hash types:")
