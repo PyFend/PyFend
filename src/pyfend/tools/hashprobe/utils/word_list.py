@@ -37,6 +37,11 @@ def create_smart_wordlist_data(
             base_words.append("".join(parts))
             base_words.append("".join(parts).lower())
 
+    # Process Birth/Modifiers
+    if birth:
+        for b in str(birth).replace("-", " ").split():
+            modifiers.append(b)
+
     # Process Extra Keywords
     if extra:
         for e in extra.replace(",", " ").split():
