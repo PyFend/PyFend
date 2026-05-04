@@ -3,8 +3,9 @@ from datetime import datetime
 from pathlib import Path
 
 import click
+import questionary
 
-from pyfend.tools.hashprobe import crack
+from pyfend.tools.hashprobe.hash_probe import crack
 from pyfend.tools.hashprobe.types import Info
 
 
@@ -93,21 +94,20 @@ def hash_probe_cmd(
         click.echo("[*] Enter personal info to generate a smart wordlist.")
         click.echo("    (Press Enter to skip any field)\n")
 
-        name = click.prompt("  Name", default="", show_default=False)
-        nickname = click.prompt("  Nickname", default="", show_default=False)
+        answers = questionary.form(
+            name=questionary.text("  Name", default=""),
+            nickname=questionary.text("  Nickname", default=""),
+            birth=questionary.text("  Birth date (YYYY-MM-DD)", default=""),
+            extra=questionary.text("  Extra info", default=""),
+        ).ask()
 
-        birth_str = click.prompt(
-            "  Birth date (YYYY-MM-DD)", default="", show_default=False
-        )
-        birth = _validate_date(ctx, None, birth_str or None)
-
-        extra = click.prompt("  Extra info", default="", show_default=False)
+        birth = _validate_date(ctx, None, answers["birth"] or None)
 
         info_input = Info(
-            name=name,
-            nickname=nickname,
+            name=answers["name"],
+            nickname=answers["nickname"],
             birth=birth,
-            extra=extra,
+            extra=answers["extra"],
         )
 
     crack(
