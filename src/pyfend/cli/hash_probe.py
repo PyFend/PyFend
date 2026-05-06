@@ -9,17 +9,46 @@ from pyfend.tools.hashprobe.hash_probe import crack
 from pyfend.tools.hashprobe.types import Info
 
 
-def _validate_date(
-    ctx: click.Context, param: click.Parameter, value: str | None
-) -> datetime | None:
+def _validate_date(value: str) -> bool | str:
     if not value:
-        return None
+        return True
     try:
-        return datetime.strptime(value, "%Y-%m-%d")
+        datetime.strptime(value, "%Y-%m-%d")
+        return True
     except ValueError:
-        raise click.BadParameter(
-            "Invalid date format, use YYYY-MM-DD", ctx=ctx, param=param
-        )
+        return "Invalid date format, use YYYY-MM-DD"
+
+
+def _get_user_info() -> Info | None:
+    click.echo("[*] Enter personal info to generate a smart wordlist.")
+    click.echo("    (Press Enter to skip any field)\n")
+
+    answers = questionary.form(
+        name=questionary.text("  Name :", default=""),
+        nickname=questionary.text("  Nickname :", default=""),
+        birth=questionary.text(
+            "  Birth date (YYYY-MM-DD) :",
+            default="",
+            validate=_validate_date,
+        ),
+        extra=questionary.text("  Extra info :", default=""),
+    ).ask()
+
+    if not answers:
+        return None
+
+    birth = (
+        datetime.strptime(answers["birth"], "%Y-%m-%d")
+        if answers["birth"]
+        else None
+    )
+
+    return Info(
+        name=answers["name"],
+        nickname=answers["nickname"],
+        birth=birth,
+        extra=answers["extra"],
+    )
 
 
 def _validate_wordlist(
@@ -52,7 +81,7 @@ def _validate_wordlist(
 @click.option(
     "--threads",
     type=int,
-    default=os.cpu_count(),
+    default=os.cpu_count() or 4,
     show_default=True,
     help="Number of threads for dictionary testing.",
 )
@@ -71,9 +100,7 @@ def _validate_wordlist(
     default=False,
     help="Interactively input personal info to generate a smart wordlist.",
 )
-@click.pass_context
 def hash_probe_cmd(
-    ctx: click.Context,
     hash_value: str,
     bruteforce: str | None,
     threads: int,
@@ -91,29 +118,17 @@ def hash_probe_cmd(
     info_input: Info | None = None
 
     if use_info:
-        click.echo("[*] Enter personal info to generate a smart wordlist.")
-        click.echo("    (Press Enter to skip any field)\n")
+        info_input = _get_user_info()
+        if info_input is None:
+            return
 
-        answers = questionary.form(
-            name=questionary.text("  Name", default=""),
-            nickname=questionary.text("  Nickname", default=""),
-            birth=questionary.text("  Birth date (YYYY-MM-DD)", default=""),
-            extra=questionary.text("  Extra info", default=""),
-        ).ask()
-
-        birth = _validate_date(ctx, None, answers["birth"] or None)
-
-        info_input = Info(
-            name=answers["name"],
-            nickname=answers["nickname"],
-            birth=birth,
-            extra=answers["extra"],
+    try:
+        crack(
+            hash_value=hash_value,
+            bruteforce=bruteforce,
+            info=info_input,
+            threads=threads,
+            limit=limit,
         )
-
-    crack(
-        hash_value=hash_value,
-        bruteforce=bruteforce,
-        info=info_input,
-        threads=threads,
-        limit=limit,
-    )
+    except Exception as e:
+        click.echo(f"\nError during execution: {e}", err=True)
