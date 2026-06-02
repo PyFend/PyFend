@@ -1,3 +1,3 @@
-from .tools import hashprobe
+from .tools import hash_probe
 
-__all__ = ["hashprobe"]
+__all__ = ["hash_probe"]

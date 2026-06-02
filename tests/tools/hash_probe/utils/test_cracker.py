@@ -2,8 +2,8 @@ import gzip
 
 import pytest
 
-from pyfend.tools.hashprobe.utils.cracker import crack_hash
-from pyfend.tools.hashprobe.utils.hashes import md5, ntlm
+from pyfend.tools.hash_probe.utils.cracker import crack_hash
+from pyfend.tools.hash_probe.utils.hashes import md5, ntlm
 
 
 def test_crack_hash_finds_match_in_additional_words_before_wordlist(
