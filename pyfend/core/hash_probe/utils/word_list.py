@@ -1,7 +1,7 @@
 from datetime import datetime
 from pathlib import Path
 
-from pyfend.tools.hash_probe.types import Info
+from pyfend.core.hash_probe.types import Info
 
 BASE_DIR = Path.cwd()
 ADDITIONAL_FILE = BASE_DIR / "wordlists" / "additional.txt"

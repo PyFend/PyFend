@@ -1,0 +1,38 @@
+[project]
+name = "pyfend"
+version = "0.1.0"
+description = "Core cybersecurity toolkit for PyFend"
+readme = "README.md"
+authors = [
+    { name = "Raymond Frans Dodi Situmorang", email = "raymondsitumorang17@gmail.com" },
+    { name = "Wilson Angelie Tan", email = "wilsonangelietann@gmail.com" },
+]
+requires-python = ">=3.12"
+dependencies = ["pycryptodome>=3.23.0"]
+license = "MIT"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Other Audience",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Repository = "https://github.com/PyFend/PyFend"
+Issues = "https://github.com/PyFend/PyFend/issues"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = [
+    "pyfend.core",
+    "pyfend.core.hash_probe",
+    "pyfend.core.hash_probe.utils",
+    "pyfend.core.port_scanner",
+]
+package-dir = { "pyfend.core" = "." }
+
+[tool.setuptools.package-data]
+"pyfend.core" = ["py.typed"]
