@@ -1,4 +1,4 @@
-from pyfend.tools.hash_probe.utils.detector import detect_hash
+from pyfend.core.hash_probe.utils.detector import detect_hash
 
 
 def test_detect_hash_identifies_base64_text() -> None:

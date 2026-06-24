@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pyfend.tools.hash_probe.utils import word_list
+from pyfend.core.hash_probe.utils import word_list
 
 
 def test_create_smart_wordlist_data_builds_expected_variations() -> None:

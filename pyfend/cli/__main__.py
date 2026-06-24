@@ -4,7 +4,7 @@ from pyfend.cli.hash_probe import hash_probe_cmd
 
 
 @click.group()
-@click.version_option(package_name="pyfend")
+@click.version_option(package_name="pyfend-cli")
 def main() -> None:
     """PyFend — Collection of cybersecurity tools for CLI and library use."""
 

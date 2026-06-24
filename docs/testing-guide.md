@@ -1,6 +1,7 @@
 # Testing Guide
 
-This project uses `pytest` for test execution, `coverage` for coverage report and `uv` for environment management.
+This project uses `pytest` for test execution, `coverage` for coverage
+reports, and `uv` for workspace and environment management.
 
 ## Prerequisites
 
@@ -23,7 +24,16 @@ uv run pytest
 To run one test file only:
 
 ```bash
-uv run pytest tests/test_example.py
+uv run pytest tests/core/hash_probe/test_hash_probe.py
+```
+
+Tests mirror the package boundary:
+
+```text
+tests/
+├── core/
+│   └── hash_probe/
+└── cli/
 ```
 
 ## Useful Options
@@ -44,4 +54,6 @@ uv run coverage report -m
 ## Notes
 
 - Place test files inside the `tests/` directory.
-- Use filenames prefixed with test_ such as `test_example.py` so `pytest` can discover them automatically.
+- Put core-library tests under `tests/core/`.
+- Put command-line tests under `tests/cli/`.
+- Prefix test filenames with `test_` so `pytest` can discover them.
