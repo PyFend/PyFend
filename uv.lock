@@ -6,7 +6,16 @@ requires-python = ">=3.12"
 members = [
     "pyfend",
     "pyfend-cli",
-    "pyfend-workspace",
+]
+
+[manifest.dependency-groups]
+dev = [
+    { name = "coverage", specifier = ">=7.13.5" },
+    { name = "pre-commit", specifier = ">=4.6.0" },
+    { name = "pyfend", editable = "pyfend/core" },
+    { name = "pyfend-cli", editable = "pyfend/cli" },
+    { name = "pytest", specifier = ">=9.0.3" },
+    { name = "ruff", specifier = ">=0.15.12" },
 ]
 
 [[package]]
@@ -279,33 +288,6 @@ requires-dist = [
     { name = "click", specifier = ">=8.3.3" },
     { name = "pyfend", editable = "pyfend/core" },
     { name = "questionary", specifier = ">=2.1.1" },
-]
-
-[[package]]
-name = "pyfend-workspace"
-version = "0.1.0"
-source = { virtual = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "coverage" },
-    { name = "pre-commit" },
-    { name = "pyfend" },
-    { name = "pyfend-cli" },
-    { name = "pytest" },
-    { name = "ruff" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "coverage", specifier = ">=7.13.5" },
-    { name = "pre-commit", specifier = ">=4.6.0" },
-    { name = "pyfend", editable = "pyfend/core" },
-    { name = "pyfend-cli", editable = "pyfend/cli" },
-    { name = "pytest", specifier = ">=9.0.3" },
-    { name = "ruff", specifier = ">=0.15.12" },
 ]
 
 [[package]]
