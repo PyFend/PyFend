@@ -1,14 +1,17 @@
 from datetime import datetime
 from pathlib import Path
 
-from pyfend.core.hash_probe.types import Info
+from pyfend.hash_probe.types import Info
 
 BASE_DIR = Path.cwd()
 ADDITIONAL_FILE = BASE_DIR / "wordlists" / "additional.txt"
 
 
 def create_smart_wordlist_data(
-    name: str = "", nickname: str = "", birth: datetime = "", extra: str = ""
+    name: str = "",
+    nickname: str = "",
+    birth: datetime | None = None,
+    extra: str = "",
 ) -> list[str]:
     """
     Core logic to generate a list of potential passwords based on personal info.

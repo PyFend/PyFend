@@ -20,7 +20,7 @@ def crack_hash(
     hash_type: str,
     wordlist_path: str,
     limit: int | None = None,
-    additional_file: str | None = None,
+    additional_file: Path | None = None,
     additional_words: list[str] | None = None,
     threads: int = 1,
 ) -> dict:

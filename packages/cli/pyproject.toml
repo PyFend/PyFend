@@ -26,15 +26,14 @@ Repository = "https://github.com/PyFend/PyFend"
 Issues = "https://github.com/PyFend/PyFend/issues"
 
 [project.scripts]
-pyfend = "pyfend.cli.__main__:main"
+pyfend-cli = "pyfend_cli.__main__:main"
 
 [build-system]
 requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["pyfend.cli"]
-package-dir = { "pyfend.cli" = "." }
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.package-data]
 "pyfend.cli" = ["py.typed"]

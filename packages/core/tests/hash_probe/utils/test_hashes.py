@@ -1,6 +1,6 @@
 import hashlib
 
-from pyfend.core.hash_probe.utils.hashes import HASH_FUNCTIONS, ntlm
+from pyfend.hash_probe.utils.hashes import HASH_FUNCTIONS, ntlm
 
 
 def test_hash_functions_return_expected_digests() -> None:

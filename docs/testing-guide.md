@@ -24,16 +24,18 @@ uv run pytest
 To run one test file only:
 
 ```bash
-uv run pytest tests/core/hash_probe/test_hash_probe.py
+uv run pytest packages/core/tests/hash_probe/test_hash_probe.py
 ```
 
 Tests mirror the package boundary:
 
 ```text
-tests/
+packages/
 ├── core/
-│   └── hash_probe/
+│   └── tests/
+│       └── hash_probe/
 └── cli/
+    └── tests/
 ```
 
 ## Useful Options
@@ -53,7 +55,7 @@ uv run coverage report -m
 
 ## Notes
 
-- Place test files inside the `tests/` directory.
-- Put core-library tests under `tests/core/`.
-- Put command-line tests under `tests/cli/`.
+- Place test files inside the package that owns the tested code.
+- Put core-library tests under `packages/core/tests/`.
+- Put command-line tests under `packages/cli/tests/`.
 - Prefix test filenames with `test_` so `pytest` can discover them.

@@ -5,5 +5,5 @@ from typing import TypedDict
 class Info(TypedDict):
     name: str
     nickname: str
-    birth: datetime
+    birth: datetime | None
     extra: str

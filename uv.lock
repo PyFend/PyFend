@@ -12,8 +12,8 @@ members = [
 dev = [
     { name = "coverage", specifier = ">=7.13.5" },
     { name = "pre-commit", specifier = ">=4.6.0" },
-    { name = "pyfend", editable = "pyfend/core" },
-    { name = "pyfend-cli", editable = "pyfend/cli" },
+    { name = "pyfend", editable = "packages/core" },
+    { name = "pyfend-cli", editable = "packages/cli" },
     { name = "pytest", specifier = ">=9.0.3" },
     { name = "ruff", specifier = ">=0.15.12" },
 ]
@@ -265,7 +265,7 @@ wheels = [
 [[package]]
 name = "pyfend"
 version = "0.1.0"
-source = { editable = "pyfend/core" }
+source = { editable = "packages/core" }
 dependencies = [
     { name = "pycryptodome" },
 ]
@@ -276,7 +276,7 @@ requires-dist = [{ name = "pycryptodome", specifier = ">=3.23.0" }]
 [[package]]
 name = "pyfend-cli"
 version = "0.1.0"
-source = { editable = "pyfend/cli" }
+source = { editable = "packages/cli" }
 dependencies = [
     { name = "click" },
     { name = "pyfend" },
@@ -286,7 +286,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "click", specifier = ">=8.3.3" },
-    { name = "pyfend", editable = "pyfend/core" },
+    { name = "pyfend", editable = "packages/core" },
     { name = "questionary", specifier = ">=2.1.1" },
 ]
 
