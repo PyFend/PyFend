@@ -16,11 +16,11 @@ pyfend-cli = { workspace = true }
 members = ["packages/*"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["packages/core/tests", "packages/cli/tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["pyfend.core", "pyfend.cli"]
+source = ["pyfend", "pyfend_cli"]
 
 [tool.coverage.report]
 show_missing = true
