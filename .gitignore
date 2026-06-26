@@ -218,3 +218,20 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+/target
+
+# Additional local/editor patterns
+*.py[cod]
+.venv/
+bin/
+include/
+man/
+pip-selfcheck.json
+.mr.developer.cfg
+.project
+.pydevproject
+.DS_Store
+.idea/
+.vscode/
+.python-version

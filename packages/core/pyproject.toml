@@ -22,11 +22,9 @@ Repository = "https://github.com/PyFend/PyFend"
 Issues = "https://github.com/PyFend/PyFend/issues"
 
 [build-system]
-requires = ["setuptools>=77"]
-build-backend = "setuptools.build_meta"
+requires = ["maturin>=1.14,<2.0"]
+build-backend = "maturin"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-data]
-"pyfend.core" = ["py.typed"]
+[tool.maturin]
+python-source = "src"
+module-name = "pyfend._rust"
