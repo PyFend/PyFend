@@ -2,6 +2,7 @@
 dev = [
     "coverage>=7.13.5",
     "maturin>=1.14.1",
+    "mkdocs>=1.6.1",
     "pre-commit>=4.6.0",
     "pyfend",
     "pyfend-cli",
