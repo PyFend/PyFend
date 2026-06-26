@@ -4,9 +4,8 @@ from datetime import datetime
 from pathlib import Path
 from uuid import uuid4
 
+import pyfend.hash_probe.hash_probe as hash_probe_module
 import pytest
-
-import pyfend.core.hash_probe.hash_probe as hash_probe_module
 
 ROOT_DIR = Path(__file__).resolve().parents[3]
 TEMP_DIR = ROOT_DIR / ".tmp-test-hash-probe"

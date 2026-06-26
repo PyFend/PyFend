@@ -4,9 +4,8 @@ from pathlib import Path
 
 import click
 import questionary
-
-from pyfend.core.hash_probe.hash_probe import crack
-from pyfend.core.hash_probe.types import Info
+from pyfend.hash_probe.hash_probe import crack
+from pyfend.hash_probe.types import Info
 
 
 def _validate_date(value: str) -> bool | str:

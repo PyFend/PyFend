@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from .types import Info
@@ -11,7 +10,7 @@ def crack(
     hash_value: str,
     bruteforce: str | None = None,
     info: Info | None = None,
-    threads: int = os.cpu_count(),
+    threads: int = 1,
     limit: int = 1,
 ) -> None:
     results = detect_hash(hash_value)

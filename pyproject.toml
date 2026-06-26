@@ -13,7 +13,7 @@ pyfend = { workspace = true }
 pyfend-cli = { workspace = true }
 
 [tool.uv.workspace]
-members = ["pyfend/core", "pyfend/cli"]
+members = ["packages/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

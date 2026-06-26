@@ -1,6 +1,5 @@
 from click.testing import CliRunner
-
-from pyfend.cli.__main__ import main
+from pyfend_cli.__main__ import main
 
 
 def test_main_help_lists_hash_probe_command() -> None:

@@ -1,6 +1,6 @@
 import click
 
-from pyfend.cli.hash_probe import hash_probe_cmd
+from .hash_probe import hash_probe_cmd
 
 
 @click.group()

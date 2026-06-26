@@ -25,14 +25,8 @@ Issues = "https://github.com/PyFend/PyFend/issues"
 requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = [
-    "pyfend.core",
-    "pyfend.core.hash_probe",
-    "pyfend.core.hash_probe.utils",
-    "pyfend.core.port_scanner",
-]
-package-dir = { "pyfend.core" = "." }
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.package-data]
 "pyfend.core" = ["py.typed"]
