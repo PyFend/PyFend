@@ -1,4 +1,4 @@
 # PyFend CLI
 
-Command-line package for PyFend. It provides the `pyfend` command and
-depends on the primary `pyfend` distribution.
+The `pyfend-cli` command-line package. It depends on the core `pyfend`
+package.
