@@ -14,10 +14,9 @@ A clear and concise description of what the bug is.
 
 Steps to reproduce the behavior:
 
-1. Go to '...'
-2. Click on '...'
-3. Scroll down to '...'
-4. See error
+1. Run `...`
+2. Provide input `...`
+3. See error `...`
 
 ## Expected Behavior
 
@@ -33,10 +32,12 @@ If applicable, add screenshots to help explain your problem.
 
 ## Environment
 
-- OS: [e.g., macOS 14.0, Windows 11, Ubuntu 22.04]
-- Browser: [e.g., Chrome 120, Firefox 121]
-- Version: [e.g., 2.1.0]
-- Node.js version: [e.g., 18.19.0]
+- OS: [e.g., macOS 14, Windows 11, Ubuntu 22.04]
+- Python version: [e.g., 3.12.8]
+- PyFend version or commit: [e.g., 0.1.0 or commit SHA]
+- uv version: [e.g., output of `uv --version`]
+- Cargo version, if the issue involves builds: [e.g., output of `cargo --version`]
+- Command used: [e.g., `uv run pyfend-cli hash-probe ...`]
 
 ## Additional Context
 
