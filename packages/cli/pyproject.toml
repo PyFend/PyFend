@@ -26,7 +26,7 @@ Repository = "https://github.com/PyFend/PyFend"
 Issues = "https://github.com/PyFend/PyFend/issues"
 
 [project.scripts]
-pyfend-cli = "pyfend_cli.__main__:main"
+pyfend = "pyfend_cli.__main__:main"
 
 [build-system]
 requires = ["setuptools>=77"]
